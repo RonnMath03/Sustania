@@ -70,7 +70,11 @@ export function LoginForm() {
       <Card className="w-full max-w-[400px] mx-auto shadow-md">
       <CardHeader className="space-y-1">
         <div className="flex flex-col items-center mb-4">
-          <Sprout className="h-12 w-12 text-green-900 mb-2" />
+        <img 
+          src="src/components/img/logo.gif" 
+          alt="Sustania Logo" 
+          className="h-12 w-12 mb-2 object-contain"
+        />
           <h1 className="text-3xl font-bold text-primary">Sustania</h1>
           <p className="text-gray-500">Digital Farming Solutions</p>
         </div>
