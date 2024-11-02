@@ -1,6 +1,6 @@
 # Sustania - Digital Farming Solutions 🌱
 
-![Sustania Logo](src/img/logo.png)
+![Sustania Logo](src/img/logo.gif)
 
 A smart irrigation system and comprehensive digital farming solution designed to help farmers optimize water usage, improve crop yields, and make data-driven decisions.
 
