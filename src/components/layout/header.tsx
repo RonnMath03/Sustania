@@ -62,12 +62,12 @@ export function Header({ onMenuClick }: HeaderProps) {
         </div>
 
         {/* Mobile Logo - Centered */}
+        <div className="flex md:hidden flex-1 justify-center">
           <img 
               src="src/components/img/logo.png" 
               alt="Sustania Logo" 
-              className="h-6 w-6 mb-2 object-contain"
+              className="h-12 w-12 mb-2 object-contain"
             />
-        <div className="flex md:hidden flex-1 justify-center">
           <span className="font-bold text-xl text-primary">{COMPANY.name}</span>
         </div>
 
