@@ -32,15 +32,25 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 items-center">
+      <div className="container flex h-14 items-center space-x-2">
         <div className="mr-4 hidden md:flex">
+          <img 
+            src="src/components/img/logo.png" 
+            alt="Sustania Logo" 
+            className="h-12 w-12 mb-2 object-contain"
+          />
           <a href="/" className="flex items-center space-x-2">
             <span className="font-bold text-xl text-primary">{COMPANY.name}</span>
           </a>
         </div>
 
         {/* Mobile Logo - Centered */}
-        <div className="flex md:hidden flex-1 justify-center">
+        <div className="flex md:hidden flex-1 justify-center space-x-2">
+          <img 
+              src="src/components/img/logo.png" 
+              alt="Sustania Logo" 
+              className="h-6 w-6 mb-2 object-contain"
+            />
           <span className="font-bold text-xl text-primary">{COMPANY.name}</span>
         </div>
 
