@@ -5,6 +5,7 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
+  DialogFooter,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -98,7 +99,7 @@ export function CreatePostDialog({ open, onOpenChange }: CreatePostDialogProps) 
               required
             />
           </div>
-          <div className="flex justify-end space-x-2">
+          <DialogFooter>
             <Button
               type="button"
               variant="outline"
@@ -117,7 +118,7 @@ export function CreatePostDialog({ open, onOpenChange }: CreatePostDialogProps) 
                 'Create Post'
               )}
             </Button>
-          </div>
+          </DialogFooter>
         </form>
       </DialogContent>
     </Dialog>

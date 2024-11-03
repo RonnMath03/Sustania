@@ -1,6 +1,6 @@
 import { useAtom } from 'jotai';
 import { useNavigate } from 'react-router-dom';
-import { Bell, Menu, Settings, User } from 'lucide-react';
+import { Bell, Settings, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -33,21 +33,21 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 items-center">
-        <div className="mr-4 flex">
-          <Button variant="ghost" size="icon" className="md:hidden">
-            <Menu className="h-5 w-5" />
-          </Button>
+        <div className="mr-4 hidden md:flex">
           <a href="/" className="flex items-center space-x-2">
             <span className="font-bold text-xl text-primary">{COMPANY.name}</span>
           </a>
         </div>
 
-        <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-          <div className="w-full flex-1 md:w-auto md:flex-none">
-            <Button variant="ghost" size="icon">
-              <Bell className="h-5 w-5" />
-            </Button>
-          </div>
+        {/* Mobile Logo - Centered */}
+        <div className="flex md:hidden flex-1 justify-center">
+          <span className="font-bold text-xl text-primary">{COMPANY.name}</span>
+        </div>
+
+        <div className="flex flex-1 items-center justify-end space-x-2">
+          <Button variant="ghost" size="icon">
+            <Bell className="h-5 w-5" />
+          </Button>
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
