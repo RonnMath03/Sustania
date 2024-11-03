@@ -6,7 +6,10 @@ import { DashboardLayout } from '@/components/layout/dashboard-layout';
 import { DashboardView } from '@/components/dashboard/dashboard-view';
 import { IrrigationView } from '@/components/irrigation/irrigation-view';
 import { ForumView } from '@/components/forum/forum-view';
+import { WeatherView } from '@/components/weather/weather-view';
 import { AnalyticsView } from '@/components/analytics/analytics-view';
+import { SupportView } from '@/components/support/support-view';
+import { ProfileView } from '@/components/profile/profile-view';
 import { NotFound } from '@/components/layout/not-found';
 import { isAuthenticatedAtom } from '@/lib/store';
 import { ROUTES } from '@/lib/constants';
@@ -78,11 +81,41 @@ export function App() {
           }
         />
         <Route
+          path={ROUTES.WEATHER}
+          element={
+            <ProtectedRoute>
+              <DashboardLayout>
+                <WeatherView />
+              </DashboardLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path={ROUTES.ANALYTICS}
           element={
             <ProtectedRoute>
               <DashboardLayout>
                 <AnalyticsView />
+              </DashboardLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={ROUTES.SUPPORT}
+          element={
+            <ProtectedRoute>
+              <DashboardLayout>
+                <SupportView />
+              </DashboardLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={ROUTES.PROFILE}
+          element={
+            <ProtectedRoute>
+              <DashboardLayout>
+                <ProfileView />
               </DashboardLayout>
             </ProtectedRoute>
           }

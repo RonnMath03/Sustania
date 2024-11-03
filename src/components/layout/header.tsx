@@ -1,6 +1,6 @@
 import { useAtom } from 'jotai';
 import { useNavigate } from 'react-router-dom';
-import { Bell, Settings, User } from 'lucide-react';
+import { Bell, Menu, Settings, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -10,11 +10,16 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { ThemeToggle } from '@/components/theme/theme-toggle';
 import { COMPANY, ROUTES } from '@/lib/constants';
 import { userAtom, isAuthenticatedAtom } from '@/lib/store';
 import { useToast } from '@/hooks/use-toast';
 
-export function Header() {
+interface HeaderProps {
+  onMenuClick: () => void;
+}
+
+export function Header({ onMenuClick }: HeaderProps) {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [user, setUser] = useAtom(userAtom);
@@ -32,7 +37,19 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 items-center space-x-2">
+      <div className="container flex h-14 items-center">
+        {/* Mobile Menu Button */}
+        <Button
+          variant="ghost"
+          size="icon"
+          className="md:hidden mr-2"
+          onClick={onMenuClick}
+        >
+          <Menu className="h-5 w-5" />
+          <span className="sr-only">Toggle menu</span>
+        </Button>
+
+        {/* Desktop Logo */}
         <div className="mr-4 hidden md:flex">
           <img 
             src="src/components/img/logo.png" 
@@ -45,16 +62,17 @@ export function Header() {
         </div>
 
         {/* Mobile Logo - Centered */}
-        <div className="flex md:hidden flex-1 justify-center space-x-2">
           <img 
               src="src/components/img/logo.png" 
               alt="Sustania Logo" 
               className="h-6 w-6 mb-2 object-contain"
             />
+        <div className="flex md:hidden flex-1 justify-center">
           <span className="font-bold text-xl text-primary">{COMPANY.name}</span>
         </div>
 
         <div className="flex flex-1 items-center justify-end space-x-2">
+          <ThemeToggle />
           <Button variant="ghost" size="icon">
             <Bell className="h-5 w-5" />
           </Button>

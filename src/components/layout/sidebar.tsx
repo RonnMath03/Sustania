@@ -7,6 +7,7 @@ import {
   Droplet,
   HelpCircle,
   LineChart,
+  User,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -50,6 +51,14 @@ export function Sidebar({ className, onNavigate }: SidebarProps) {
               Irrigation
             </Button>
             <Button
+              variant={isActive(ROUTES.WEATHER) ? "secondary" : "ghost"}
+              className="w-full justify-start"
+              onClick={() => handleNavigation(ROUTES.WEATHER)}
+            >
+              <Cloud className="mr-2 h-4 w-4" />
+              Weather
+            </Button>
+            <Button
               variant={isActive(ROUTES.ANALYTICS) ? "secondary" : "ghost"}
               className="w-full justify-start"
               onClick={() => handleNavigation(ROUTES.ANALYTICS)}
@@ -66,20 +75,20 @@ export function Sidebar({ className, onNavigate }: SidebarProps) {
               Forum
             </Button>
             <Button
-              variant={isActive(ROUTES.WEATHER) ? "secondary" : "ghost"}
-              className="w-full justify-start"
-              onClick={() => handleNavigation(ROUTES.WEATHER)}
-            >
-              <Cloud className="mr-2 h-4 w-4" />
-              Weather
-            </Button>
-            <Button
               variant={isActive(ROUTES.SUPPORT) ? "secondary" : "ghost"}
               className="w-full justify-start"
               onClick={() => handleNavigation(ROUTES.SUPPORT)}
             >
               <HelpCircle className="mr-2 h-4 w-4" />
               Support
+            </Button>
+            <Button
+              variant={isActive(ROUTES.PROFILE) ? "secondary" : "ghost"}
+              className="w-full justify-start"
+              onClick={() => handleNavigation(ROUTES.PROFILE)}
+            >
+              <User className="mr-2 h-4 w-4" />
+              Profile
             </Button>
           </div>
         </div>
