@@ -51,23 +51,13 @@ export function Header({ onMenuClick }: HeaderProps) {
 
         {/* Desktop Logo */}
         <div className="mr-4 hidden md:flex">
-          <img 
-            src="src/components/img/logo.png" 
-            alt="Sustania Logo" 
-            className="h-12 w-12 mb-2 object-contain"
-          />
-          <a href="/" className="flex items-center space-x-2">
+          <a href={ROUTES.DASHBOARD} className="flex items-center space-x-2">
             <span className="font-bold text-xl text-primary">{COMPANY.name}</span>
           </a>
         </div>
 
         {/* Mobile Logo - Centered */}
         <div className="flex md:hidden flex-1 justify-center">
-          <img 
-              src="src/components/img/logo.png" 
-              alt="Sustania Logo" 
-              className="h-12 w-12 mb-2 object-contain"
-            />
           <span className="font-bold text-xl text-primary">{COMPANY.name}</span>
         </div>
 
@@ -86,15 +76,25 @@ export function Header({ onMenuClick }: HeaderProps) {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>{user?.name || 'My Account'}</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Profile</DropdownMenuItem>
-              <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem>Support</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate(ROUTES.PROFILE)}>
+                Profile
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate(ROUTES.SETTINGS)}>
+                Settings
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate(ROUTES.SUPPORT)}>
+                Support
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={handleLogout}>Log out</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <Button variant="ghost" size="icon">
+          <Button 
+            variant="ghost" 
+            size="icon"
+            onClick={() => navigate(ROUTES.SETTINGS)}
+          >
             <Settings className="h-5 w-5" />
           </Button>
         </div>

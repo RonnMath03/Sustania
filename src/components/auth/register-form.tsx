@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -19,7 +20,8 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Loader2, Sprout } from 'lucide-react';
-import { COMPANY } from '@/lib/constants';
+import { COMPANY, ROUTES } from '@/lib/constants';
+import { useToast } from '@/hooks/use-toast';
 
 const cropTypes = [
   'Wheat',
@@ -33,6 +35,8 @@ const cropTypes = [
 ];
 
 export function RegisterForm() {
+  const navigate = useNavigate();
+  const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     fullName: '',
@@ -48,9 +52,26 @@ export function RegisterForm() {
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    // TODO: Implement registration logic
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setIsLoading(false);
+    
+    try {
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      
+      toast({
+        title: 'Account created successfully',
+        description: 'Welcome to Sustania! Please sign in to continue.',
+      });
+      
+      navigate(ROUTES.LOGIN);
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Error creating account',
+        description: 'Please try again later.',
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,7 +95,7 @@ export function RegisterForm() {
       </CardHeader>
       <CardContent>
         <form onSubmit={onSubmit} className="space-y-4">
-          <div className="space-y-2">
+        <div className="space-y-2">
             <Label htmlFor="fullName">Full Name</Label>
             <Input
               id="fullName"
@@ -222,7 +243,11 @@ export function RegisterForm() {
       <CardFooter className="flex justify-center">
         <div className="text-sm text-muted-foreground">
           Already have an account?{' '}
-          <Button variant="link" className="text-primary p-0">
+          <Button 
+            variant="link" 
+            className="text-primary p-0"
+            onClick={() => navigate(ROUTES.LOGIN)}
+          >
             Sign in
           </Button>
         </div>

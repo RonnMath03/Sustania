@@ -10,6 +10,7 @@ import { WeatherView } from '@/components/weather/weather-view';
 import { AnalyticsView } from '@/components/analytics/analytics-view';
 import { SupportView } from '@/components/support/support-view';
 import { ProfileView } from '@/components/profile/profile-view';
+import { AboutView } from '@/components/about/about-view';
 import { NotFound } from '@/components/layout/not-found';
 import { isAuthenticatedAtom } from '@/lib/store';
 import { ROUTES } from '@/lib/constants';
@@ -30,6 +31,7 @@ export function App() {
   return (
     <Router>
       <Routes>
+        <Route path={ROUTES.HOME} element={<AboutView />} />
         <Route
           path={ROUTES.LOGIN}
           element={
