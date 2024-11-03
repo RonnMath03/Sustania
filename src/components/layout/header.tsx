@@ -37,7 +37,7 @@ export function Header({ onMenuClick }: HeaderProps) {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 items-center">
+      <div className="container flex h-12 items-center">
         {/* Mobile Menu Button */}
         <Button
           variant="ghost"
@@ -50,18 +50,28 @@ export function Header({ onMenuClick }: HeaderProps) {
         </Button>
 
         {/* Desktop Logo */}
-        <div className="mr-4 hidden md:flex">
+        <div className="ml-4 mr-4 hidden md:flex justify-items-center items-center">
+          <img 
+            src="src/components/img/logo.png" 
+            alt="Sustania Logo" 
+            className="h-7 w-7 mr-2 object-contain"
+          />
           <a href={ROUTES.DASHBOARD} className="flex items-center space-x-2">
-            <span className="font-bold text-xl text-primary">{COMPANY.name}</span>
+            <span className="font-bold text-2xl text-primary">{COMPANY.name}</span>
           </a>
         </div>
 
         {/* Mobile Logo - Centered */}
-        <div className="flex md:hidden flex-1 justify-center">
-          <span className="font-bold text-xl text-primary">{COMPANY.name}</span>
+        <div className="flex md:hidden flex-1 items-center">
+          <img 
+            src="src/components/img/logo.png" 
+            alt="Sustania Logo" 
+            className="h-7 w-7 ml-2 mr-1 object-contain"
+          />
+          <span className="font-bold text-2xl text-primary">{COMPANY.name}</span>
         </div>
 
-        <div className="flex flex-1 items-center justify-end space-x-2">
+        <div className="flex items-center gap-2 ml-auto">
           <ThemeToggle />
           <Button variant="ghost" size="icon">
             <Bell className="h-5 w-5" />
