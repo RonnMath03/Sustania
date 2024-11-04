@@ -1,5 +1,3 @@
-import { User } from './types';
-
 export interface User {
   id: string;
   name: string;
@@ -63,4 +61,12 @@ export interface ForumComment {
   likes: number;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface Notification {
+  id: string;
+  type: 'success' | 'error' | 'warning' | 'info';
+  title: string;
+  message: string;
+  timestamp: Date;
 }
