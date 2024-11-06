@@ -1,19 +1,13 @@
 import { useAtom } from 'jotai';
 import { useNavigate } from 'react-router-dom';
-import { Bell, Menu, Settings, User } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { ThemeToggle } from '@/components/theme/theme-toggle';
-import { COMPANY, ROUTES } from '@/lib/constants';
 import { userAtom, isAuthenticatedAtom } from '@/lib/store';
-import { useToast } from '@/hooks/use-toast';
+import { COMPANY, ROUTES } from '@/lib/constants';
+import { ThemeToggle } from '@/components/theme/theme-toggle';
+import { SystemNotificationCenter } from '@/components/notifications/system-notification-center';
+import { UserMenu } from '@/components/layout/user-menu';
+import { SettingsMenu } from '@/components/settings/settings-menu';
 
 interface HeaderProps {
   onMenuClick: () => void;
@@ -21,23 +15,12 @@ interface HeaderProps {
 
 export function Header({ onMenuClick }: HeaderProps) {
   const navigate = useNavigate();
-  const { toast } = useToast();
-  const [user, setUser] = useAtom(userAtom);
-  const [, setIsAuthenticated] = useAtom(isAuthenticatedAtom);
-
-  const handleLogout = () => {
-    setUser(null);
-    setIsAuthenticated(false);
-    toast({
-      title: 'Logged out successfully',
-      description: 'Come back soon!',
-    });
-    navigate(ROUTES.LOGIN);
-  };
+  const [user] = useAtom(userAtom);
+  const [isAuthenticated] = useAtom(isAuthenticatedAtom);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-12 items-center">
+      <div className="container flex h-14 items-center">
         {/* Mobile Menu Button */}
         <Button
           variant="ghost"
@@ -52,7 +35,7 @@ export function Header({ onMenuClick }: HeaderProps) {
         {/* Desktop Logo */}
         <div className="ml-4 mr-4 hidden md:flex justify-items-center items-center">
           <img 
-            src="src/components/img/logo.png" 
+            src="/src/components/img/logo.png" 
             alt="Sustania Logo" 
             className="h-7 w-7 mr-2 object-contain"
           />
@@ -64,7 +47,7 @@ export function Header({ onMenuClick }: HeaderProps) {
         {/* Mobile Logo - Centered */}
         <div className="flex md:hidden flex-1 items-center">
           <img 
-            src="src/components/img/logo.png" 
+            src="/src/components/img/logo.png" 
             alt="Sustania Logo" 
             className="h-7 w-7 ml-2 mr-1 object-contain"
           />
@@ -73,40 +56,13 @@ export function Header({ onMenuClick }: HeaderProps) {
 
         <div className="flex items-center gap-2 ml-auto">
           <ThemeToggle />
-          <Button variant="ghost" size="icon">
-            <Bell className="h-5 w-5" />
-          </Button>
-
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon">
-                <User className="h-5 w-5" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>{user?.name || 'My Account'}</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => navigate(ROUTES.PROFILE)}>
-                Profile
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => navigate(ROUTES.SETTINGS)}>
-                Settings
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => navigate(ROUTES.SUPPORT)}>
-                Support
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={handleLogout}>Log out</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          <Button 
-            variant="ghost" 
-            size="icon"
-            onClick={() => navigate(ROUTES.SETTINGS)}
-          >
-            <Settings className="h-5 w-5" />
-          </Button>
+          <SystemNotificationCenter />
+          {isAuthenticated && (
+            <>
+              <UserMenu user={user} />
+              <SettingsMenu />
+            </>
+          )}
         </div>
       </div>
     </header>

@@ -1,19 +1,23 @@
+import { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useAtom } from 'jotai';
 import { LoginForm } from '@/components/auth/login-form';
-import { RegisterForm } from '@/components/auth/register-form';
 import { DashboardLayout } from '@/components/layout/dashboard-layout';
-import { DashboardView } from '@/components/dashboard/dashboard-view';
-import { IrrigationView } from '@/components/irrigation/irrigation-view';
-import { ForumView } from '@/components/forum/forum-view';
-import { WeatherView } from '@/components/weather/weather-view';
-import { AnalyticsView } from '@/components/analytics/analytics-view';
-import { SupportView } from '@/components/support/support-view';
-import { ProfileView } from '@/components/profile/profile-view';
-import { AboutView } from '@/components/about/about-view';
-import { NotFound } from '@/components/layout/not-found';
+import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import { isAuthenticatedAtom } from '@/lib/store';
 import { ROUTES } from '@/lib/constants';
+
+// Lazy load components
+const RegisterForm = lazy(() => import('@/components/auth/register-form').then(m => ({ default: m.RegisterForm })));
+const DashboardView = lazy(() => import('@/components/dashboard/dashboard-view').then(m => ({ default: m.DashboardView })));
+const IrrigationView = lazy(() => import('@/components/irrigation/irrigation-view').then(m => ({ default: m.IrrigationView })));
+const ForumView = lazy(() => import('@/components/forum/forum-view').then(m => ({ default: m.ForumView })));
+const WeatherView = lazy(() => import('@/components/weather/weather-view').then(m => ({ default: m.WeatherView })));
+const AnalyticsView = lazy(() => import('@/components/analytics/analytics-view').then(m => ({ default: m.AnalyticsView })));
+const SupportView = lazy(() => import('@/components/support/support-view').then(m => ({ default: m.SupportView })));
+const ProfileView = lazy(() => import('@/components/profile/profile-view').then(m => ({ default: m.ProfileView })));
+const AboutView = lazy(() => import('@/components/about/about-view').then(m => ({ default: m.AboutView })));
+const NotFound = lazy(() => import('@/components/layout/not-found').then(m => ({ default: m.NotFound })));
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const [isAuthenticated] = useAtom(isAuthenticatedAtom);
@@ -25,13 +29,32 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
+function SuspenseWrapper({ children }: { children: React.ReactNode }) {
+  return (
+    <Suspense fallback={
+      <div className="flex h-screen items-center justify-center">
+        <LoadingSpinner size="lg" />
+      </div>
+    }>
+      {children}
+    </Suspense>
+  );
+}
+
 export function App() {
   const [isAuthenticated] = useAtom(isAuthenticatedAtom);
 
   return (
     <Router>
       <Routes>
-        <Route path={ROUTES.HOME} element={<AboutView />} />
+        <Route
+          path={ROUTES.HOME}
+          element={
+            <SuspenseWrapper>
+              <AboutView />
+            </SuspenseWrapper>
+          }
+        />
         <Route
           path={ROUTES.LOGIN}
           element={
@@ -48,7 +71,9 @@ export function App() {
             isAuthenticated ? (
               <Navigate to={ROUTES.DASHBOARD} replace />
             ) : (
-              <RegisterForm />
+              <SuspenseWrapper>
+                <RegisterForm />
+              </SuspenseWrapper>
             )
           }
         />
@@ -57,7 +82,9 @@ export function App() {
           element={
             <ProtectedRoute>
               <DashboardLayout>
-                <DashboardView />
+                <SuspenseWrapper>
+                  <DashboardView />
+                </SuspenseWrapper>
               </DashboardLayout>
             </ProtectedRoute>
           }
@@ -67,7 +94,9 @@ export function App() {
           element={
             <ProtectedRoute>
               <DashboardLayout>
-                <IrrigationView />
+                <SuspenseWrapper>
+                  <IrrigationView />
+                </SuspenseWrapper>
               </DashboardLayout>
             </ProtectedRoute>
           }
@@ -77,7 +106,9 @@ export function App() {
           element={
             <ProtectedRoute>
               <DashboardLayout>
-                <ForumView />
+                <SuspenseWrapper>
+                  <ForumView />
+                </SuspenseWrapper>
               </DashboardLayout>
             </ProtectedRoute>
           }
@@ -87,7 +118,9 @@ export function App() {
           element={
             <ProtectedRoute>
               <DashboardLayout>
-                <WeatherView />
+                <SuspenseWrapper>
+                  <WeatherView />
+                </SuspenseWrapper>
               </DashboardLayout>
             </ProtectedRoute>
           }
@@ -97,7 +130,9 @@ export function App() {
           element={
             <ProtectedRoute>
               <DashboardLayout>
-                <AnalyticsView />
+                <SuspenseWrapper>
+                  <AnalyticsView />
+                </SuspenseWrapper>
               </DashboardLayout>
             </ProtectedRoute>
           }
@@ -107,7 +142,9 @@ export function App() {
           element={
             <ProtectedRoute>
               <DashboardLayout>
-                <SupportView />
+                <SuspenseWrapper>
+                  <SupportView />
+                </SuspenseWrapper>
               </DashboardLayout>
             </ProtectedRoute>
           }
@@ -117,12 +154,21 @@ export function App() {
           element={
             <ProtectedRoute>
               <DashboardLayout>
-                <ProfileView />
+                <SuspenseWrapper>
+                  <ProfileView />
+                </SuspenseWrapper>
               </DashboardLayout>
             </ProtectedRoute>
           }
         />
-        <Route path="*" element={<NotFound />} />
+        <Route
+          path="*"
+          element={
+            <SuspenseWrapper>
+              <NotFound />
+            </SuspenseWrapper>
+          }
+        />
       </Routes>
     </Router>
   );

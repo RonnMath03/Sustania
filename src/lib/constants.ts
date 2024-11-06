@@ -15,6 +15,7 @@ export const ROUTES = {
   ANALYTICS: '/analytics',
   SUPPORT: '/support',
   PROFILE: '/profile',
+  SETTINGS: '/settings',
 } as const;
 
 export const MOCK_WEATHER = {
@@ -31,4 +32,4 @@ export const MOCK_WEATHER = {
     { day: 'Thu', temp: 22, condition: 'Rain' },
     { day: 'Fri', temp: 21, condition: 'Showers' },
   ],
-};
+} as const;
