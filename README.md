@@ -60,7 +60,7 @@ npm run dev
  python -m venv sustania_env
  
  # On Windows
- .\sustania_env\Scripts\activate
+ sustania_env\Scripts\activate
  # On Unix/MacOS
  source sustania_env/bin/activate
  ```
