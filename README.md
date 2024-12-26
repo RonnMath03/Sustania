@@ -72,9 +72,11 @@ npm run dev
  - Start the backend services
  ```bash
  # Terminal 1 - ML API
+ cd ml_api
  python irrigation_api.py
  
  # Terminal 2 - Sensor API
+ cd sensor_api
  python sensor_api.py
  ```
 
