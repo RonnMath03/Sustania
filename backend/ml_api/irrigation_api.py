@@ -1,4 +1,5 @@
 # irrigation_api.py
+import os
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware  # Add this import
 from pydantic import BaseModel, Field
@@ -6,6 +7,9 @@ import joblib
 import logging
 from datetime import datetime
 import pandas as pd
+
+# Define project root directory at the top of the file
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -45,7 +49,7 @@ class PredictionResponse(BaseModel):
 
 # Load the trained model
 try:
-    model = joblib.load('irrigation_model.joblib')
+    model = joblib.load(os.path.join(BASE_DIR, 'ml', 'models', 'irrigation_model.joblib'))
     logging.info("Model loaded successfully")
 except Exception as e:
     logging.error(f"Error loading model: {str(e)}")

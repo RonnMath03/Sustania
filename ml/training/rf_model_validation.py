@@ -6,21 +6,27 @@ import seaborn as sns
 import joblib
 import logging
 from datetime import datetime
+import os
 
-# Set up logging
+# Define base directory and create logs directory
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+LOGS_DIR = os.path.join(BASE_DIR, 'logs')
+os.makedirs(LOGS_DIR, exist_ok=True)
+
+# Update logging configuration
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler(f'model_testing_{datetime.now().strftime("%Y%m%d_%H%M%S")}.log'),
+        logging.FileHandler(os.path.join(LOGS_DIR, f'model_testing_{datetime.now().strftime("%Y%m%d_%H%M%S")}.log')),
         logging.StreamHandler()
     ]
 )
 
 class ModelTester:
-    def __init__(self, model_path='./models/irrigation_model.joblib'):
+    def __init__(self, model_path=None):
         """Initialize the model tester"""
-        self.model_path = model_path
+        self.model_path = model_path or os.path.join(BASE_DIR, 'ml', 'models', 'irrigation_model.joblib')
         self.pipeline = None
         
     def load_model(self):
@@ -121,6 +127,11 @@ class ModelTester:
     
     def _plot_results(self, y_test, predictions, probabilities):
         """Generate performance visualization plots"""
+        # Update image paths
+        confusion_matrix_path = os.path.join(LOGS_DIR, 'confusion_matrix_test.png')
+        roc_curve_path = os.path.join(LOGS_DIR, 'roc_curve_test.png')
+        prob_dist_path = os.path.join(LOGS_DIR, 'probability_distribution_test.png')
+        
         # 1. Confusion Matrix
         plt.figure(figsize=(8, 6))
         cm = confusion_matrix(y_test, predictions)
@@ -130,7 +141,7 @@ class ModelTester:
         plt.title('Confusion Matrix on Test Data')
         plt.ylabel('True Label')
         plt.xlabel('Predicted Label')
-        plt.savefig('confusion_matrix_test.png')
+        plt.savefig(confusion_matrix_path)
         plt.close()
         
         # 2. ROC Curve
@@ -143,7 +154,7 @@ class ModelTester:
         plt.ylabel('True Positive Rate')
         plt.title('ROC Curve on Test Data')
         plt.legend(loc="lower right")
-        plt.savefig('roc_curve_test.png')
+        plt.savefig(roc_curve_path)
         plt.close()
         
         # 3. Probability Distribution
@@ -153,15 +164,18 @@ class ModelTester:
             'True Class': y_test
         }), x='Probability', hue='True Class', bins=30)
         plt.title('Distribution of Prediction Probabilities')
-        plt.savefig('probability_distribution_test.png')
+        plt.savefig(prob_dist_path)
         plt.close()
 
 def main():
     # Initialize tester
     tester = ModelTester()
     
+    # Update test dataset path
+    test_data_path = os.path.join(BASE_DIR, 'ml', 'training', 'dataset', 'test_dataset.csv')
+    
     # Run tests
-    predictions, probabilities = tester.test_model('dataset/test_dataset.csv')
+    predictions, probabilities = tester.test_model(test_data_path)
 
 if __name__ == "__main__":
     main()

@@ -13,19 +13,46 @@ import seaborn as sns
 import joblib
 import logging
 from datetime import datetime
+import os
+
+# Define base directory
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+# Define subdirectories
+LOGS_DIR = os.path.join(BASE_DIR, 'logs')
+MODELS_DIR = os.path.join(BASE_DIR, 'ml', 'models')
+DATASET_DIR = os.path.join(BASE_DIR, 'ml', 'training', 'dataset')
+
+# Create directories if they don't exist
+os.makedirs(LOGS_DIR, exist_ok=True)
+os.makedirs(MODELS_DIR, exist_ok=True)
+
+# Update paths for data
+INPUT_DATASET = os.path.join(DATASET_DIR, 'input_dataset.csv')
+MODEL_PATH = os.path.join(MODELS_DIR, 'irrigation_model.joblib')
+
+# Update paths for logs and images
+LOG_FILE = os.path.join(LOGS_DIR, f'training_{datetime.now().strftime("%Y%m%d_%H%M%S")}.log')
+PLOT_DIR = os.path.join(LOGS_DIR, 'plots')
+os.makedirs(PLOT_DIR, exist_ok=True)
+
+def save_plot(name, fig):
+    """Save plots to logs directory"""
+    plot_path = os.path.join(PLOT_DIR, f'{name}_{datetime.now().strftime("%Y%m%d_%H%M%S")}.png')
+    fig.savefig(plot_path)
 
 # Set up logging with both file and console handlers
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler(f'logs/irrigation_pipeline_{datetime.now().strftime("%Y%m%d_%H%M%S")}.log'),
+        logging.FileHandler(LOG_FILE),
         logging.StreamHandler()
     ]
 )
 
 class IrrigationMLPipeline:
-    def __init__(self, input_file, model_save_path='./models/irrigation_model.joblib'):
+    def __init__(self, input_file=INPUT_DATASET, model_save_path=MODEL_PATH):
         self.input_file = input_file
         self.model_save_path = model_save_path
         self.data = None
@@ -245,7 +272,7 @@ class IrrigationMLPipeline:
         plt.title('Confusion Matrix')
         plt.ylabel('True Label')
         plt.xlabel('Predicted Label')
-        plt.savefig('logs/confusion_matrix.png')
+        save_plot('confusion_matrix', plt.gcf())
         plt.close()
         
         # 2. ROC Curve
@@ -260,7 +287,7 @@ class IrrigationMLPipeline:
         plt.ylabel('True Positive Rate')
         plt.title('ROC Curve')
         plt.legend(loc="lower right")
-        plt.savefig('logs/roc_curve.png')
+        save_plot('roc_curve', plt.gcf())
         plt.close()
         
         # 3. Probability Distribution
@@ -270,7 +297,7 @@ class IrrigationMLPipeline:
             'True Class': y_test
         }), x='Probability', hue='True Class', bins=30)
         plt.title('Distribution of Prediction Probabilities')
-        plt.savefig('logs/probability_distribution.png')
+        save_plot('probability_distribution', plt.gcf())
         plt.close()
     
     def analyze_feature_importance(self):
@@ -290,7 +317,7 @@ class IrrigationMLPipeline:
                       [self.feature_columns[i] for i in indices], 
                       rotation=45, ha='right')
             plt.tight_layout()
-            plt.savefig('logs/feature_importance.png')
+            save_plot('feature_importance', plt.gcf())
             plt.close()
             
             print("\nTop 10 Most Important Features:")

@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import logging
 from time import time
+import os
 
 class ModelComparisonPipeline:
     def __init__(self):
@@ -186,7 +187,9 @@ def main():
     pipeline = ModelComparisonPipeline()
     
     # Load and prepare data
-    X_train, X_test, y_train, y_test, feature_columns = pipeline.prepare_data('./training/dataset/input_dataset.csv')
+    dataset_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 
+                               'training', 'dataset', 'input_dataset.csv')
+    X_train, X_test, y_train, y_test, feature_columns = pipeline.prepare_data(dataset_path)
     
     # Train and evaluate all models
     pipeline.train_and_evaluate(X_train, X_test, y_train, y_test)
@@ -194,7 +197,7 @@ def main():
     # Plot comparisons
     pipeline.plot_roc_curves(X_test, y_test)
     pipeline.plot_comparison_metrics()
-    
+
     # Select best model
     best_model = pipeline.select_best_model()
 
