@@ -1,0 +1,20 @@
+2024-10-25 12:57:06,064 - INFO - Model loaded successfully
+2024-10-25 12:57:06,080 - INFO - 
+Classification Report:
+2024-10-25 12:57:06,080 - INFO - 
+              precision    recall  f1-score   support
+
+           0       0.97      1.00      0.99        33
+           1       1.00      0.97      0.98        33
+
+    accuracy                           0.98        66
+   macro avg       0.99      0.98      0.98        66
+weighted avg       0.99      0.98      0.98        66
+
+2024-10-25 12:57:06,091 - INFO - 
+Detailed Metrics:
+2024-10-25 12:57:06,091 - INFO - Accuracy: 0.9848
+2024-10-25 12:57:06,091 - INFO - Precision: 1.0000
+2024-10-25 12:57:06,091 - INFO - Recall: 0.9697
+2024-10-25 12:57:06,103 - INFO - False Positive Rate: 0.0000
+2024-10-25 12:57:06,103 - INFO - False Negative Rate: 0.0303

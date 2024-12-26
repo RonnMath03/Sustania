@@ -1,0 +1,3 @@
+npm run test: Run tests in watch mode
+npm run test:ui: Open the Vitest UI
+npm run coverage: Generate coverage report
