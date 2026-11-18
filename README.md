@@ -174,9 +174,6 @@ sustania/
 ```
 
 ## 📚 Documentation
-- Research Papers
-  - IEEE Format Publication
-  - Springer Format Publication
 - Technical Documentation
   - Project Report
   - API Documentation
@@ -187,7 +184,6 @@ sustania/
 
 ## 📝 Research Publications
 - [*Sustania: A Digital Farming Ecosystem for Smart Agriculture*](https://ieeexplore.ieee.org/abstract/document/11168623), ACCTHPA 2025, IEEE Xplore (published version)
-- Preprints: [IEEE format](https://github.com/RonnMath03/Sustania/blob/main/docs/research_papers/Sustania%20Research%20Paper%20IEEE%20Format%20(Longer).pdf) · [Springer format](https://github.com/RonnMath03/Sustania/blob/main/docs/research_papers/Sustania%20Research%20Paper%20Springer%20Format.pdf)
 
 ## 🤝 Contributing
 Contributions are welcome! Please read our contributing guidelines to get started.
