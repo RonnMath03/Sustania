@@ -2,6 +2,8 @@
 
 A machine learning powered digital farming system that combines IoT sensors and predictive analytics to optimize crop health monitoring and irrigation management.
 
+📄 Published as [*Sustania: A Digital Farming Ecosystem for Smart Agriculture*](https://ieeexplore.ieee.org/abstract/document/11168623), ACCTHPA 2025 (IEEE Xplore)
+
 ## 🎯 Project Overview
 
 Sustania revolutionizes agricultural practices by integrating IoT sensors with advanced machine learning algorithms to provide real-time soil monitoring and smart irrigation recommendations. The system features a modern React-based dashboard for data visualization and intelligent decision support based on Random Forest predictions.
@@ -184,10 +186,8 @@ sustania/
   - API Integration Tests
 
 ## 📝 Research Publications
-- [Sustania: A Digital Farming Ecosystem for
-Smart Agriculture](https://github.com/RonnMath03/Sustania/blob/main/docs/research_papers/Sustania%20Research%20Paper%20IEEE%20Format%20(Longer).pdf) - IEEE Format
-- [Sustania: A Digital Farming Ecosystem for
-Smart Agriculture](https://github.com/RonnMath03/Sustania/blob/main/docs/research_papers/Sustania%20Research%20Paper%20Springer%20Format.pdf) - Springer Format
+- [*Sustania: A Digital Farming Ecosystem for Smart Agriculture*](https://ieeexplore.ieee.org/abstract/document/11168623), ACCTHPA 2025, IEEE Xplore (published version)
+- Preprints: [IEEE format](https://github.com/RonnMath03/Sustania/blob/main/docs/research_papers/Sustania%20Research%20Paper%20IEEE%20Format%20(Longer).pdf) · [Springer format](https://github.com/RonnMath03/Sustania/blob/main/docs/research_papers/Sustania%20Research%20Paper%20Springer%20Format.pdf)
 
 ## 🤝 Contributing
 Contributions are welcome! Please read our contributing guidelines to get started.
